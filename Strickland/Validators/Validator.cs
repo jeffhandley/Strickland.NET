@@ -2,27 +2,18 @@
 {
     public abstract class Validator<T>
     {
-        public abstract bool Validate(T value);
-    }
+        public IDictionary<string, object?> Properties { get; protected init; }
 
-    public static class ValidatorExtensions
-    {
-        public static bool Validate<T>(this IEnumerable<Validator<T>> validators, T value)
+        public Validator(IDictionary<string, object?>? properties)
         {
-            if (validators is null || !validators.Any())
-            {
-                return true;
-            }
-
-            foreach (var validator in validators)
-            {
-                if (!validator.Validate(value))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            Properties = properties ?? new Dictionary<string, object?>();
         }
+
+        public virtual bool Validate(T value)
+        {
+            return Validate(value, (object?)null);
+        }
+
+        public abstract bool Validate<C>(T value, C context);
     }
 }

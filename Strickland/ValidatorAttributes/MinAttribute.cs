@@ -11,9 +11,9 @@ namespace Strickland.ValidatorAttributes
             MinValue = minValue;
         }
 
-        public override Validator<T> CreateValidator()
+        public override Validator<T> CreateValidator(IDictionary<string, object?> properties)
         {
-            return new Min<T>(MinValue);
+            return new Min<T>(MinValue, properties);
         }
     }
 }

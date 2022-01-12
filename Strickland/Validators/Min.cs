@@ -4,12 +4,13 @@
     {
         public T MinValue { get; }
 
-        public Min(T minValue)
+        public Min(T minValue, IDictionary<string, object?>? properties = null) : base(properties)
         {
             MinValue = minValue;
+            Properties[nameof(MinValue)] = minValue;
         }
 
-        public override bool Validate(T value)
+        public override bool Validate<C>(T value, C context)
         {
             if (value >= MinValue)
             {

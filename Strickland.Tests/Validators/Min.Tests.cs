@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Strickland.Validators.Min.Tests
 {
@@ -29,6 +30,20 @@ namespace Strickland.Validators.Min.Tests
             var result = min.Validate(80);
 
             Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Accepts_Properties()
+        {
+            var min = new Min<int>(88, new Dictionary<string, object?>() { { "Year", 1985 } });
+            Assert.AreEqual(1985, min.Properties["Year"]);
+        }
+
+        [Test]
+        public void Exposes_MinValue_InProperties()
+        {
+            var min = new Min<int>(88);
+            Assert.AreEqual(88, min.Properties[nameof(Min<int>.MinValue)]);
         }
     }
 }

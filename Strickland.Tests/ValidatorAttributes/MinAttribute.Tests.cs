@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Strickland.ValidatorAttributes.MinAttribute.Tests
@@ -61,6 +62,15 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
                 var validators = ValidatorAttribute.CreateValidators(nameof(entity.GetDestinationYear), (TimeTravel e) => e.GetDestinationYear());
 
                 Assert.IsNotEmpty(validators);
+            }
+
+            [Test]
+            public void WithProperties()
+            {
+                var entity = new TimeTravel();
+                var validator = ValidatorAttribute.CreateValidators(nameof(entity.Speed), (TimeTravel e) => e.Speed).Single();
+
+                Assert.AreEqual(88, validator.Properties[nameof(MinAttribute<int>.MinValue)]);
             }
         }
 
