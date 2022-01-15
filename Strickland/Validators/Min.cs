@@ -8,7 +8,12 @@
         public Min(Func<T> getMinValue) : this((context) => getMinValue()) { }
         public Min(T minValue) : this((context) => minValue) { }
 
-        public override bool Validate(T value, ValidationContext? context = default) => (value >= _getMinValue(context));
+        public override ValidationResult<ValidationContext> Validate(T value, ValidationContext? context = default)
+        {
+            var isValid = value >= _getMinValue(context);
+
+            return new ValidationResult<ValidationContext>(isValid, context);
+        }
     }
 
     public static class Min

@@ -71,7 +71,7 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
                 var validator = ValidatorAttribute.CreateValidators(nameof(entity.Speed), (TimeTravel e) => e.Speed).Single();
                 var result = validator.Validate(entity.Speed);
 
-                Assert.IsTrue(result);
+                Assert.IsTrue(result.IsValid);
             }
 
             [Test]
@@ -81,7 +81,7 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
                 var validator = ValidatorAttribute.CreateValidators(nameof(entity.Speed), (TimeTravel e) => e.Speed).Single();
                 var result = validator.Validate(entity.Speed);
 
-                Assert.IsTrue(result);
+                Assert.IsTrue(result.IsValid);
             }
 
             [Test]
@@ -91,7 +91,7 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
                 var validator = ValidatorAttribute.CreateValidators(nameof(entity.Speed), (TimeTravel e) => e.Speed).Single();
                 var result = validator.Validate(entity.Speed);
 
-                Assert.IsFalse(result);
+                Assert.IsFalse(result.IsValid);
             }
         }
     }
