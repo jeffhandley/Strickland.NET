@@ -1,23 +1,25 @@
 ﻿namespace Strickland.Validators
 {
-    public class Min<T> : Validator<T> where T : IComparisonOperators<T, T>
+    public class Min<T, ValidationContext> : Validator<T, ValidationContext> where T : IComparisonOperators<T, T>
     {
-        public T MinValue { get; }
+        private Func<ValidationContext?, T> _getMinValue;
 
-        public Min(T minValue, IDictionary<string, object?>? properties = null) : base(properties)
-        {
-            MinValue = minValue;
-            Properties[nameof(MinValue)] = minValue;
-        }
+        public Min(Func<ValidationContext?, T> getMinValue) => _getMinValue = getMinValue;
+        public Min(Func<T> getMinValue) : this((context) => getMinValue()) { }
+        public Min(T minValue) : this((context) => minValue) { }
 
-        public override bool Validate<C>(T value, C context)
-        {
-            if (value >= MinValue)
-            {
-                return true;
-            }
+        public override bool Validate(T value, ValidationContext? context = default) => (value >= _getMinValue(context));
+    }
 
-            return false;
-        }
+    public static class Min
+    {
+        public static Min<T, object?> Of<T>(T minValue) where T : IComparisonOperators<T, T>
+            => new(minValue);
+
+        public static Min<T, object?> Of<T>(Func<T> getMinValue) where T : IComparisonOperators<T, T>
+            => new(getMinValue);
+
+        public static Min<T, ValidationContext> Of<T, ValidationContext>(Func<ValidationContext?, T> getMinValue) where T : IComparisonOperators<T, T>
+            => new(getMinValue);
     }
 }

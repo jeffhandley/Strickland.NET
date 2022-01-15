@@ -12,10 +12,7 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
             public int Speed { get; set; }
 
             [Min<int>(1985)]
-            public int GetDestinationYear()
-            {
-                return 1885;
-            }
+            public int GetDestinationYear() => 1885;
         }
 
         public class CanCreateValidator
@@ -62,15 +59,6 @@ namespace Strickland.ValidatorAttributes.MinAttribute.Tests
                 var validators = ValidatorAttribute.CreateValidators(nameof(entity.GetDestinationYear), (TimeTravel e) => e.GetDestinationYear());
 
                 Assert.IsNotEmpty(validators);
-            }
-
-            [Test]
-            public void WithProperties()
-            {
-                var entity = new TimeTravel();
-                var validator = ValidatorAttribute.CreateValidators(nameof(entity.Speed), (TimeTravel e) => e.Speed).Single();
-
-                Assert.AreEqual(88, validator.Properties[nameof(MinAttribute<int>.MinValue)]);
             }
         }
 
