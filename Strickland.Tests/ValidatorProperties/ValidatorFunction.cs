@@ -40,20 +40,24 @@ namespace Strickland.Tests.ValidatorProperties
             Assert.AreEqual("Speed must be at least 88mph", result.Properties.Message);
         }
 
-        [TestCase(80)]
-        [TestCase(88)]
-        [TestCase(90)]
-        public void Validate_MinOf88_Result_PropertiesFunction(int testValue)
+        [TestCase(80, ExpectedResult = "You must be going at least 88mph to travel through time. Your speed is 80mph.")]
+        [TestCase(88, ExpectedResult = "Your speed of 88mph was enough to travel through time!")]
+        [TestCase(90, ExpectedResult = "Your speed of 90mph was enough to travel through time!")]
+        public string Validate_MinOf88_Result_PropertiesFunction(int testValue)
         {
-            var props = (ValidationResult<int> result) => new {
-                Message = string.Format("Speed must be at least 88mph to travel through time. Your speed was {0}.", result.Value)
+            var props = (ValidationResult<int> result) => new
+            {
+                Message = string.Format(
+                    result.IsValid ?
+                        "Your speed of {0}mph was enough to travel through time!" :
+                        "You must be going at least 88mph to travel through time. Your speed is {0}mph.",
+                    result.Value)
             };
 
             var min = (int value) => (value >= 88, props);
             var result = Validation.Validate(testValue, min);
 
-            Assert.AreEqual(string.Format("Speed must be at least 88mph to travel through time. Your speed was {0}.", testValue), result.Properties(result).Message);
+            return result.Properties(result).Message;
         }
-
     }
 }
