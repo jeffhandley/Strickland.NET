@@ -1,16 +1,10 @@
 ﻿using NUnit.Framework;
+using Strickland.Validators;
 
 namespace Strickland.Tests.Validation
 {
     public class GenericValidatorInstance
     {
-        public class Min<T> : IValidator<T> where T : IComparisonOperators<T, T>
-        {
-            public T MinValue { get; init; }
-            public Min(T minValue) => MinValue = minValue;
-            public bool IsValid(T value) => value >= MinValue;
-        }
-
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]
@@ -41,14 +35,12 @@ namespace Strickland.Tests.Validation
             return result.Validator.MinValue;
         }
 
+        /// <summary>
+        /// Illustrates an approach for working around the language limitation
+        /// that disallows generic type argument inference on constructors.
+        /// </summary>
         public class Shorthand
         {
-            // Work around the inability to infer generic type arguments on constructors
-            public static class Min
-            {
-                public static Min<T> Of<T>(T minValue) where T : IComparisonOperators<T, T> => new(minValue);
-            }
-
             [TestCase(88, 80, ExpectedResult = false)]
             [TestCase(88, 88, ExpectedResult = true)]
             [TestCase(88, 90, ExpectedResult = true)]
