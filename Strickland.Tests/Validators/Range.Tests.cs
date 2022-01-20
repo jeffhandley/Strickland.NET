@@ -11,10 +11,10 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL, 95UL)]
         [TestCase(88F, 95F)]
         [TestCase(88D, 95D)]
-        public void SetsMinValue<T>(T minValue, T maxValue) where T : IComparisonOperators<T, T>
+        public void SetsMinLimit<T>(T minLimit, T maxLimit) where T : IComparisonOperators<T, T>
         {
-            var Range = new Range<T>(minValue, maxValue);
-            Assert.AreEqual(minValue, Range.MinValue);
+            var Range = new Range<T>(minLimit, maxLimit);
+            Assert.AreEqual(minLimit, Range.MinLimit);
         }
 
         [TestCase(88, 95)]
@@ -23,10 +23,10 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL, 95UL)]
         [TestCase(88F, 95F)]
         [TestCase(88D, 95D)]
-        public void SetsMaxValue<T>(T minValue, T maxValue) where T : IComparisonOperators<T, T>
+        public void SetsMaxLimit<T>(T minLimit, T maxLimit) where T : IComparisonOperators<T, T>
         {
-            var Range = new Range<T>(minValue, maxValue);
-            Assert.AreEqual(maxValue, Range.MaxValue);
+            var Range = new Range<T>(minLimit, maxLimit);
+            Assert.AreEqual(maxLimit, Range.MaxLimit);
         }
 
         [TestCase(88, 95, 80, ExpectedResult = false)]

@@ -11,10 +11,10 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL)]
         [TestCase(88F)]
         [TestCase(88D)]
-        public void SetsMinValue<T>(T minValue) where T : IComparisonOperators<T, T>
+        public void SetsLimit<T>(T limit) where T : IComparisonOperators<T, T>
         {
-            var min = new Min<T>(minValue);
-            Assert.AreEqual(minValue, min.MinValue);
+            var min = new Min<T>(limit);
+            Assert.AreEqual(limit, min.Limit);
         }
 
         [TestCase(88, 80, ExpectedResult = false)]

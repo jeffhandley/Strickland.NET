@@ -1,10 +1,10 @@
 ﻿namespace Strickland.Composition
 {
-    public class Every<T> : IValidator<T>
+    public class Every<T> : Strickland.IValidator<T>
     {
-        private IEnumerable<IValidator<T>> _validators;
+        private IEnumerable<Strickland.IValidator<T>> _validators;
 
-        public Every(params IValidator<T>[] validators)
+        public Every(params Strickland.IValidator<T>[] validators)
         {
             _validators = validators;
         }

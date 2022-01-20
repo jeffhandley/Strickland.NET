@@ -11,10 +11,10 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL)]
         [TestCase(88F)]
         [TestCase(88D)]
-        public void SetsMaxValue<T>(T maxValue) where T : IComparisonOperators<T, T>
+        public void SetsLimit<T>(T limit) where T : IComparisonOperators<T, T>
         {
-            var max = new Max<T>(maxValue);
-            Assert.AreEqual(maxValue, max.MaxValue);
+            var max = new Max<T>(limit);
+            Assert.AreEqual(limit, max.Limit);
         }
 
         [TestCase(88, 80, ExpectedResult = true)]

@@ -2,8 +2,8 @@
 {
     public class Max<T> : IValidator<T> where T : IComparisonOperators<T, T>
     {
-        public T MaxValue { get; init; }
-        public Max(T maxValue) => MaxValue = maxValue;
-        public bool IsValid(T value) => value <= MaxValue;
+        public T Limit { get; init; }
+        public Max(T limit) => Limit = limit;
+        public bool IsValid(T value) => value <= Limit;
     }
 }
