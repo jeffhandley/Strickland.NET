@@ -3,7 +3,7 @@ using Strickland.Validators;
 
 namespace Strickland.Tests.Validators
 {
-    public class RangeTests
+    public class RangeValidatorTests
     {
         [TestCase(88, 95)]
         [TestCase(88U, 95U)]
@@ -11,10 +11,10 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL, 95UL)]
         [TestCase(88F, 95F)]
         [TestCase(88D, 95D)]
-        public void SetsMinLimit<T>(T minLimit, T maxLimit) where T : IComparisonOperators<T, T>
+        public void SetsMin<T>(T min, T max) where T : IComparisonOperators<T, T>
         {
-            var Range = new Range<T>(minLimit, maxLimit);
-            Assert.AreEqual(minLimit, Range.MinLimit);
+            var validator = new RangeValidator<T>(min, max);
+            Assert.AreEqual(min, validator.Min);
         }
 
         [TestCase(88, 95)]
@@ -23,20 +23,20 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL, 95UL)]
         [TestCase(88F, 95F)]
         [TestCase(88D, 95D)]
-        public void SetsMaxLimit<T>(T minLimit, T maxLimit) where T : IComparisonOperators<T, T>
+        public void SetsMax<T>(T min, T max) where T : IComparisonOperators<T, T>
         {
-            var Range = new Range<T>(minLimit, maxLimit);
-            Assert.AreEqual(maxLimit, Range.MaxLimit);
+            var validator = new RangeValidator<T>(min, max);
+            Assert.AreEqual(max, validator.Max);
         }
 
         [TestCase(88, 95, 80, ExpectedResult = false)]
         [TestCase(88, 88, 88, ExpectedResult = true)]
         [TestCase(88, 95, 95, ExpectedResult = true)]
         [TestCase(88, 95, 100, ExpectedResult = false)]
-        public bool Validates<T>(T minValue, T maxValue, T value) where T : IComparisonOperators<T, T>
+        public bool Validates<T>(T min, T max, T value) where T : IComparisonOperators<T, T>
         {
-            var Range = new Range<T>(minValue, maxValue);
-            return Range.IsValid(value);
+            var validator = new RangeValidator<T>(min, max);
+            return validator.IsValid(value);
         }
     }
 }

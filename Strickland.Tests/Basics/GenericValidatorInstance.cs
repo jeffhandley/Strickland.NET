@@ -5,20 +5,20 @@ namespace Strickland.Tests.Basics
 {
     public class GenericValidatorInstance
     {
-        public class Min<T> : IValidator<T> where T : IComparisonOperators<T, T>
+        public class MinValidator<T> : IValidatorFunction<T> where T : IComparisonOperators<T, T>
         {
-            public T MinValue { get; init; }
-            public Min(T minValue) => MinValue = minValue;
-            public bool IsValid(T value) => value >= MinValue;
+            public T Min { get; init; }
+            public MinValidator(T min) => Min = min;
+            public bool IsValid(T value) => value >= Min;
         }
 
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]
-        public bool Validate_Min_Result_IsValid<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+        public bool Validate_Min_Result_IsValid<T>(T minValue, T value) where T : IComparisonOperators<T, T>
         {
-            var validator = new Min<T>(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator<T>(minValue);
+            var result = Validation.Validate(value, validator);
 
             return result.IsValid;
         }
@@ -26,10 +26,10 @@ namespace Strickland.Tests.Basics
         [TestCase(88, 80, ExpectedResult = 80)]
         [TestCase(88, 88, ExpectedResult = 88)]
         [TestCase(88, 90, ExpectedResult = 90)]
-        public T Validate_Min_Result_Value<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+        public T Validate_Min_Result_Value<T>(T minValue, T value) where T : IComparisonOperators<T, T>
         {
-            var validator = new Min<T>(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator<T>(minValue);
+            var result = Validation.Validate(value, validator);
 
             return result.Value;
         }
@@ -37,12 +37,12 @@ namespace Strickland.Tests.Basics
         [TestCase(88, 80, ExpectedResult = 88)]
         [TestCase(88, 88, ExpectedResult = 88)]
         [TestCase(88, 90, ExpectedResult = 88)]
-        public T Validate_Min_Result_MinValue<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+        public T Validate_Min_Result_Min<T>(T minValue, T value) where T : IComparisonOperators<T, T>
         {
-            var validator = new Min<T>(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator<T>(minValue);
+            var result = Validation.Validate(value, validator);
 
-            return result.Validator.MinValue;
+            return result.Validator.Min;
         }
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace Strickland.Tests.Basics
             [TestCase(88, 80, ExpectedResult = false)]
             [TestCase(88, 88, ExpectedResult = true)]
             [TestCase(88, 90, ExpectedResult = true)]
-            public bool Validate_Min_Result_IsValid<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+            public bool Validate_Min_Result_IsValid<T>(T minValue, T value) where T : IComparisonOperators<T, T>
             {
-                var validator = new Min<T>(testMinValue);
-                var result = Validation.Validate(testValue, validator);
+                var validator = new MinValidator<T>(minValue);
+                var result = Validation.Validate(value, validator);
 
                 return result.IsValid;
             }
@@ -65,10 +65,10 @@ namespace Strickland.Tests.Basics
             [TestCase(88, 80, ExpectedResult = 80)]
             [TestCase(88, 88, ExpectedResult = 88)]
             [TestCase(88, 90, ExpectedResult = 90)]
-            public T Validate_Min_Result_Value<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+            public T Validate_Min_Result_Value<T>(T minValue, T value) where T : IComparisonOperators<T, T>
             {
-                var validator = new Min<T>(testMinValue);
-                var result = Validation.Validate(testValue, validator);
+                var validator = new MinValidator<T>(minValue);
+                var result = Validation.Validate(value, validator);
 
                 return result.Value;
             }
@@ -76,12 +76,12 @@ namespace Strickland.Tests.Basics
             [TestCase(88, 80, ExpectedResult = 88)]
             [TestCase(88, 88, ExpectedResult = 88)]
             [TestCase(88, 90, ExpectedResult = 88)]
-            public T Validate_Min_Result_MinValue<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
+            public T Validate_Min_Result_Min<T>(T minValue, T value) where T : IComparisonOperators<T, T>
             {
-                var validator = new Min<T>(testMinValue);
-                var result = Validation.Validate(testValue, validator);
+                var validator = new MinValidator<T>(minValue);
+                var result = Validation.Validate(value, validator);
 
-                return result.Validator.MinValue;
+                return result.Validator.Min;
             }
         }
     }

@@ -1,26 +1,25 @@
 ﻿namespace Strickland.Composition
 {
-    public class All<T> : Strickland.IValidator<T>
+    public class EveryValidator<T> : IValidatorFunction<T>
     {
-        private IEnumerable<Strickland.IValidator<T>> _validators;
+        private IEnumerable<IValidatorFunction<T>> _validators;
 
-        public All(params Strickland.IValidator<T>[] validators)
+        public EveryValidator(params IValidatorFunction<T>[] validators)
         {
             _validators = validators;
         }
 
         public bool IsValid(T value)
         {
-            var isValid = true;
-
             foreach (var validator in _validators)
             {
                 if (!validator.IsValid(value))
                 {
-                    isValid = false;
+                    return false;
                 }
             }
-            return isValid;
+
+            return true;
         }
     }
 }

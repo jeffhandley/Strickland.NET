@@ -1,10 +1,10 @@
 ﻿namespace Strickland.Composition
 {
-    public class Some<T> : Strickland.IValidator<T>
+    public class SomeValidator<T> : IValidatorFunction<T>
     {
-        private IEnumerable<Strickland.IValidator<T>> _validators;
+        private IEnumerable<IValidatorFunction<T>> _validators;
 
-        public Some(params Strickland.IValidator<T>[] validators)
+        public SomeValidator(params IValidatorFunction<T>[] validators)
         {
             _validators = validators;
         }
@@ -18,6 +18,7 @@
                     return true;
                 }
             }
+
             return false;
         }
     }

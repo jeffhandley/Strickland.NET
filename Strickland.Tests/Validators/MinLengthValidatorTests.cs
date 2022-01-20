@@ -8,8 +8,8 @@ namespace Strickland.Tests.Validators
         [TestCase(8)]
         public void SetsLimit(int limit)
         {
-            var min = new MinLength<string, char>(limit);
-            Assert.AreEqual(limit, min.Limit);
+            var min = new MinLengthValidator<string, char>(limit);
+            Assert.AreEqual(limit, min.MinLength);
         }
 
         [TestCase(8, "Marty", ExpectedResult = false)]
@@ -17,7 +17,7 @@ namespace Strickland.Tests.Validators
         [TestCase(8, "Strickland", ExpectedResult = true)]
         public bool ValidatesStrings(int limit, string value)
         {
-            var min = new MinLength<string, char>(limit);
+            var min = new MinLengthValidator<string, char>(limit);
             return min.IsValid(value);
         }
     }

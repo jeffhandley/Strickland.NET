@@ -5,20 +5,20 @@ namespace Strickland.Tests.Basics
 {
     public class ValidatorInstance
     {
-        public class Min : IValidator<int>
+        public class MinValidator : IValidatorFunction<int>
         {
-            public int MinValue { get; init; }
-            public Min(int minValue) => MinValue = minValue;
-            public bool IsValid(int value) => value >= MinValue;
+            public int Min { get; init; }
+            public MinValidator(int min) => Min = min;
+            public bool IsValid(int value) => value >= Min;
         }
 
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]
-        public bool Validate_Min_Result_IsValid(int testMinValue, int testValue)
+        public bool Validate_Min_Result_IsValid(int minValue, int value)
         {
-            var validator = new Min(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator(minValue);
+            var result = Validation.Validate(value, validator);
 
             return result.IsValid;
         }
@@ -26,10 +26,10 @@ namespace Strickland.Tests.Basics
         [TestCase(88, 80, ExpectedResult = 80)]
         [TestCase(88, 88, ExpectedResult = 88)]
         [TestCase(88, 90, ExpectedResult = 90)]
-        public int Validate_Min_Result_Value(int testMinValue, int testValue)
+        public int Validate_Min_Result_Value(int minValue, int value)
         {
-            var validator = new Min(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator(minValue);
+            var result = Validation.Validate(value, validator);
 
             return result.Value;
         }
@@ -37,12 +37,12 @@ namespace Strickland.Tests.Basics
         [TestCase(88, 80, ExpectedResult = 88)]
         [TestCase(88, 88, ExpectedResult = 88)]
         [TestCase(88, 90, ExpectedResult = 88)]
-        public int Validate_Min_Result_MinValue(int testMinValue, int testValue)
+        public int Validate_Min_Result_MinValue(int minValue, int value)
         {
-            var validator = new Min(testMinValue);
-            var result = Validation.Validate(testValue, validator);
+            var validator = new MinValidator(minValue);
+            var result = Validation.Validate(value, validator);
 
-            return result.Validator.MinValue;
+            return result.Validator.Min;
         }
     }
 }

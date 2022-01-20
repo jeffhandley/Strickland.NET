@@ -4,7 +4,7 @@ using Strickland.Validators;
 
 namespace Strickland.Tests.Composition
 {
-    public class AllTests
+    public class EveryValidatorTests
     {
         [TestCase(80, ExpectedResult = false)]
         [TestCase(88, ExpectedResult = true)]
@@ -12,11 +12,11 @@ namespace Strickland.Tests.Composition
         [TestCase(100, ExpectedResult = false)]
         public bool Validates_Array_Of_Validator_Instances(int value)
         {
-            var min = new Min<int>(88);
-            var max = new Max<int>(95);
-            var all = new All<int>(min, max);
+            var min = new MinValidator<int>(88);
+            var max = new MaxValidator<int>(95);
+            var every = new EveryValidator<int>(min, max);
 
-            return all.IsValid(value);
+            return every.IsValid(value);
         }
     }
 }

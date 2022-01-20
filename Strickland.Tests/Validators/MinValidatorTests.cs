@@ -3,7 +3,7 @@ using Strickland.Validators;
 
 namespace Strickland.Tests.Validators
 {
-    public class MinTests
+    public class MinValidatorTests
     {
         [TestCase(88)]
         [TestCase(88U)]
@@ -11,19 +11,19 @@ namespace Strickland.Tests.Validators
         [TestCase(88UL)]
         [TestCase(88F)]
         [TestCase(88D)]
-        public void SetsLimit<T>(T limit) where T : IComparisonOperators<T, T>
+        public void SetsMin<T>(T min) where T : IComparisonOperators<T, T>
         {
-            var min = new Min<T>(limit);
-            Assert.AreEqual(limit, min.Limit);
+            var validator = new MinValidator<T>(min);
+            Assert.AreEqual(min, validator.Min);
         }
 
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]
-        public bool Validates<T>(T minValue, T value) where T : IComparisonOperators<T, T>
+        public bool Validates<T>(T min, T value) where T : IComparisonOperators<T, T>
         {
-            var min = new Min<T>(minValue);
-            return min.IsValid(value);
+            var validator = new MinValidator<T>(min);
+            return validator.IsValid(value);
         }
     }
 }

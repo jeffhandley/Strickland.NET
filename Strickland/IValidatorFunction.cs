@@ -1,11 +1,11 @@
 ﻿namespace Strickland
 {
-    public interface IValidator<T>
+    public interface IValidatorFunction<T>
     {
         bool IsValid(T value);
     }
 
-    public interface IValidator<T, P> : IValidator<T>
+    public interface IValidator<T, P> : IValidatorFunction<T>
     {
         P Properties { get; init; }
     }
