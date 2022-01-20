@@ -18,7 +18,8 @@ namespace Strickland.Tests.Basics
         public bool Validate_Min_Result_IsValid(int testMinValue, int testValue)
         {
             var validator = new Min(testMinValue);
-            var result = Strickland.Validation.Validate(testValue, validator);
+            var result = Validation.Validate(testValue, validator);
+
             return result.IsValid;
         }
 
@@ -28,7 +29,8 @@ namespace Strickland.Tests.Basics
         public int Validate_Min_Result_Value(int testMinValue, int testValue)
         {
             var validator = new Min(testMinValue);
-            var result = Strickland.Validation.Validate(testValue, validator);
+            var result = Validation.Validate(testValue, validator);
+
             return result.Value;
         }
 
@@ -38,7 +40,8 @@ namespace Strickland.Tests.Basics
         public int Validate_Min_Result_MinValue(int testMinValue, int testValue)
         {
             var validator = new Min(testMinValue);
-            var result = Strickland.Validation.Validate(testValue, validator);
+            var result = Validation.Validate(testValue, validator);
+
             return result.Validator.MinValue;
         }
     }

@@ -14,7 +14,6 @@ namespace Strickland.Tests.Composition
         {
             var min = new Min<int>(88);
             var max = new Max<int>(95);
-
             var all = new All<int>(min, max);
 
             return all.IsValid(value);

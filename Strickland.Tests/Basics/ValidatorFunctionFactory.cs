@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-// using Strickland.Validators;
 
 namespace Strickland.Tests.Basics
 {
@@ -12,7 +11,8 @@ namespace Strickland.Tests.Basics
         {
             var minFactory = (int minValue) => (int value) => value >= minValue;
             var min = minFactory(testMinValue);
-            var result = Strickland.Validation.Validate(testValue, min);
+            var result = Validation.Validate(testValue, min);
+
             return result.IsValid;
         }
 
@@ -23,7 +23,8 @@ namespace Strickland.Tests.Basics
         {
             var min = (int minValue) => (int value) => value >= minValue;
             var validator = min(testMinValue);
-            var result = Strickland.Validation.Validate(testValue, validator);
+            var result = Validation.Validate(testValue, validator);
+
             return result.Value;
         }
     }

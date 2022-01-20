@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-// using Strickland.Validators;
 
 namespace Strickland.Tests.Basics
 {
@@ -11,7 +10,8 @@ namespace Strickland.Tests.Basics
         public bool Validate_MinOf88_Result_IsValid(int testValue)
         {
             var min = (int value) => value >= 88;
-            var result = Strickland.Validation.Validate(testValue, min);
+            var result = Validation.Validate(testValue, min);
+
             return result.IsValid;
         }
 
@@ -21,7 +21,8 @@ namespace Strickland.Tests.Basics
         public int Validate_MinOf88_Result_Value(int testValue)
         {
             var min = (int value) => value >= 88;
-            var result = Strickland.Validation.Validate(testValue, min);
+            var result = Validation.Validate(testValue, min);
+
             return result.Value;
         }
     }

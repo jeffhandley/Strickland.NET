@@ -14,8 +14,7 @@ namespace Strickland.Tests.Composition
         {
             var min = new Min<int>(88);
             var max = new Max<int>(95);
-
-            var every = new Strickland.Composition.Every<int>((Strickland.IValidator<int>)min, (Strickland.IValidator<int>)max);
+            var every = new Every<int>(min, max);
 
             return every.IsValid(value);
         }

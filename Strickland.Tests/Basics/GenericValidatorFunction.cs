@@ -10,7 +10,8 @@ namespace Strickland.Tests.Basics
         public bool Validate_Min_Result_IsValid<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
         {
             var min = (T value) => value >= testMinValue;
-            var result = Strickland.Validation.Validate(testValue, min);
+            var result = Validation.Validate(testValue, min);
+
             return result.IsValid;
         }
 
@@ -20,7 +21,8 @@ namespace Strickland.Tests.Basics
         public T Validate_Min_Result_Value<T>(T testMinValue, T testValue) where T : IComparisonOperators<T, T>
         {
             var min = (T value) => value >= testMinValue;
-            var result = Strickland.Validation.Validate(testValue, min);
+            var result = Validation.Validate(testValue, min);
+
             return result.Value;
         }
     }
