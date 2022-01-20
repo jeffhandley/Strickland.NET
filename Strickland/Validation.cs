@@ -17,7 +17,17 @@
         public static ValidationResult<T, P> Validate<T, P>(T value, Func<T, (bool IsValid, P Properties)> validator)
         {
             var result = validator(value);
+
             return new(result.IsValid, value, result.Properties);
+        }
+
+        public static ValidationResult<T, P> Validate<T, P>(T value, Validator<T, P> validator)
+        {
+            var isValid = validator.Validate(value);
+            var result = new ValidationResult<T>(isValid, value);
+            var properties = validator.ResolveProperties(result);
+
+            return new(isValid, value, properties);
         }
     }
 }
