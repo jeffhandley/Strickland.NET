@@ -1,10 +1,17 @@
 ﻿using NUnit.Framework;
 using Strickland.Validators;
 
-namespace Strickland.Tests.Validation
+namespace Strickland.Tests.Basics
 {
     public class GenericValidatorInstance
     {
+        public class Min<T> : IValidator<T> where T : IComparisonOperators<T, T>
+        {
+            public T MinValue { get; init; }
+            public Min(T minValue) => MinValue = minValue;
+            public bool IsValid(T value) => value >= MinValue;
+        }
+
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]

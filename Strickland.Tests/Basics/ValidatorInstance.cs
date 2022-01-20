@@ -1,10 +1,17 @@
 ﻿using NUnit.Framework;
 using Strickland.Validators;
 
-namespace Strickland.Tests.Validation
+namespace Strickland.Tests.Basics
 {
     public class ValidatorInstance
     {
+        public class Min : IValidator<int>
+        {
+            public int MinValue { get; init; }
+            public Min(int minValue) => MinValue = minValue;
+            public bool IsValid(int value) => value >= MinValue;
+        }
+
         [TestCase(88, 80, ExpectedResult = false)]
         [TestCase(88, 88, ExpectedResult = true)]
         [TestCase(88, 90, ExpectedResult = true)]

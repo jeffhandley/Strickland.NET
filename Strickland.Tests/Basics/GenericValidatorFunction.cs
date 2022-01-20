@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-// using Strickland.Validators;
 
-namespace Strickland.Tests.Validation
+namespace Strickland.Tests.Basics
 {
     public class GenericValidatorFunction
     {
